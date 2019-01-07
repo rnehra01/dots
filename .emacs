@@ -16,8 +16,10 @@
 	(package-install 'use-package))
 
 ;;Disable bars
-(tool-bar-mode -1) 
-
+(tool-bar-mode -1)
+ 
+(use-package zerodark-theme
+  :ensure t)
 (setq custom-safe-themes t)
 (load-theme 'zerodark t)
 
@@ -45,28 +47,49 @@
     (global-set-key (kbd "C-x o") 'ace-window)
   :diminish ace-window-mode)
 
-(require 'auto-complete)
-(global-auto-complete-mode t)
+(use-package auto-complete
+  :ensure t
+  :init
+    (global-auto-complete-mode t)
+)
 
-(require 'linum-relative)	       
-(global-set-key (kbd "C-c l") 'linum-relative)  
+(use-package linum-relative
+  :ensure t
+  :init	       
+     (global-set-key (kbd "C-c l") 'linum-relative)
+)  
 
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(use-package expand-region
+  :ensure t
+  :init
+    (global-set-key (kbd "C-=") 'er/expand-region)
+)
 
-(require 'multiple-cursors)
-(global-set-key (kbd "C-.") 'mc/mark-next-like-this)
-(global-set-key (kbd "C->") 'mc/mark-all-like-this)		
+(use-package multiple-cursors
+  :ensure t
+  :init
+    (global-set-key (kbd "C-.") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C->") 'mc/mark-all-like-this)		
+)
 
-(require 'ace-jump-mode)
-(define-key global-map (kbd "C-,") 'ace-jump-word-mode)
-(define-key global-map (kbd "C-<") 'ace-jump-mode-pop-mark)
+(use-package ace-jump-mode
+  :ensure t
+  :init
+    (define-key global-map (kbd "C-,") 'ace-jump-word-mode)
+    (define-key global-map (kbd "C-<") 'ace-jump-mode-pop-mark)
+)
 
-(require 'smart-comment)     
-(global-set-key (kbd "M-;") 'smart-comment)
+(use-package smart-comment     
+  :ensure t
+  :init
+    (global-set-key (kbd "M-;") 'smart-comment)
+)
 
-(require 'magit)
-(global-set-key (kbd "C-x g") 'magit-status)
+(use-package magit
+  :ensure t
+  :init
+    (global-set-key (kbd "C-x g") 'magit-status)
+)
 
 (use-package pdf-tools
   :ensure t
@@ -97,3 +120,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
