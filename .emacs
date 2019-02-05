@@ -36,6 +36,12 @@
 ;;Does anyone type yes anymore?
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(setq echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell t)
+(show-paren-mode t)
+(blink-cursor-mode 0)
+
 ;;Tab width
 (setq tab-width 4)
 
@@ -44,12 +50,9 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
-;; Recent commands				
-(use-package smex
-  :ensure t
-  :init
-	(global-set-key (kbd "M-x") 'smex)
-)
+;;Misc Key Bindings
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; Help with C-x
 (use-package which-key
@@ -60,6 +63,27 @@
   :config
   (which-key-mode)
 )
+
+;;Search using ivy
+(use-package swiper
+  :ensure t
+  :config
+  (progn
+	(ivy-mode 1)
+	(setq ivy-use-virtual-buffers t)
+	(setq enable-recursive-minibuffers t)
+	(global-set-key "\C-s" 'swiper)
+	)
+  )
+
+(use-package counsel
+  :ensure t
+  :config
+  (progn
+	(global-set-key (kbd "M-x") 'counsel-M-x)
+	(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+	)
+  )
 
 ;;undo-redo
 (use-package undo-tree
@@ -85,6 +109,13 @@
 	(setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?o))
 	(global-set-key (kbd "C-x o") 'ace-window)
   :diminish ace-window-mode)
+
+;;Smart parenthesis
+(use-package smartparens
+  :ensure t
+  :init
+  (smartparens-global-mode 1)
+)
 
 (use-package auto-complete
   :ensure t
@@ -124,13 +155,24 @@
 (use-package smart-comment     
   :ensure t
   :init
-    (global-set-key (kbd "M-;") 'smart-comment)
+    (global-set-key (kbd "C-;") 'smart-comment)
 )
 
 (use-package magit
   :ensure t
   :init
     (global-set-key (kbd "C-x g") 'magit-status)
+)
+
+;;Markdown mode
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (visual-line-mode t)  
+            (flyspell-mode t)
+	  )
 )
 
 (use-package pdf-tools
@@ -152,9 +194,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ivy-mode t)
  '(package-selected-packages
    (quote
-    (powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode))))
+	(smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
