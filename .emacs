@@ -17,6 +17,7 @@
 
 ;;Disable bars
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;;Themes
 (use-package zerodark-theme
@@ -35,24 +36,29 @@
 
 ;;Does anyone type yes anymore?
 (fset 'yes-or-no-p 'y-or-n-p)
+(defun y-or-n-p-with-return (orig-func &rest args)
+  (let ((query-replace-map (copy-keymap query-replace-map)))
+    (define-key query-replace-map (kbd "RET") 'act)
+    (apply orig-func args)))        
+
+(advice-add 'y-or-n-p :around #'y-or-n-p-with-return)
 
 (setq echo-keystrokes 0.1
       use-dialog-box nil
       visible-bell t)
 (show-paren-mode t)
 (blink-cursor-mode 0)
+(global-hl-line-mode t)					; highlight cursor line
+(pending-delete-mode t)					; overwrite selected text
+(global-linum-mode t)
 
 ;;Tab width
 (setq tab-width 4)
 
 ;;IDO Everywhere
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
-;;Misc Key Bindings
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (ido-mode 1)
 
 ;; Help with C-x
 (use-package which-key
@@ -82,6 +88,8 @@
   (progn
 	(global-set-key (kbd "M-x") 'counsel-M-x)
 	(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+	(global-set-key (kbd "C-c j") 'counsel-git-grep)
+	(global-set-key (kbd "C-c k") 'counsel-ag)
 	)
   )
 
@@ -127,10 +135,10 @@
   :ensure t
   :init
      (setq linum-relative-backend 'display-line-numbers-mode) ;; Use `display-line-number-mode` as linum-mode's backend for smooth performance
-     (global-set-key (kbd "C-c l") 'linum-relative-toggle)
   :config
-     (linum-on)
-)  
+  (progn
+    (linum-on))
+)
 
 (use-package expand-region
   :ensure t
@@ -164,15 +172,19 @@
     (global-set-key (kbd "C-x g") 'magit-status)
 )
 
+(use-package forge
+  :after magit
+)
+
 ;;Markdown mode
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 (add-hook 'markdown-mode-hook
-          (lambda ()
+		  (lambda ()
             (visual-line-mode t)  
             (flyspell-mode t)
-	  )
+          )
 )
 
 (use-package pdf-tools
@@ -197,7 +209,8 @@
  '(ivy-mode t)
  '(package-selected-packages
    (quote
-	(smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode))))
+	(forge golden-ratio wgrep treemacs-magit treemacs smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode)))
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

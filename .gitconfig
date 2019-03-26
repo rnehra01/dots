@@ -5,3 +5,5 @@
 	helper = cache
 [core]
 	editor = vim
+[github]
+	user = rnehra01
