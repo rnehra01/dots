@@ -187,6 +187,34 @@
           )
 )
 
+;;Blogging
+;;create a new post
+
+(setq blog-home "/home/rnehra/Github/rnehra01.github.io")
+
+(defun new-post()
+  "Make a new blog post."
+  (interactive)
+  (let ((title (read-string "Title: ")))
+  (find-file (format "%s/_posts/%s-%s.md"
+					 blog-home
+					 (format-time-string "%Y-%m-%d")
+					 (replace-regexp-in-string "\\W+" "-" title)))
+  (insert "---\n")
+  (insert "layout: post\n")
+  (insert "current: post\n")
+  (insert "cover: \n")
+  (insert "navigation: True\n")
+  (insert (format "title: \"%s\"\n" title))
+  (insert (format "date: %s\n" (format-time-string "%Y-%m-%d %H:%M:%S +0530")))
+  (insert "tags: \n")
+  (insert "class: post-template\n")
+  (insert "subclass: post\n")
+  (insert "toc: True")
+  (insert "disqus: True\n")
+  (insert "---\n"))
+  )
+
 (use-package pdf-tools
   :ensure t
   :config
