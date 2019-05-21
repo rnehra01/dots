@@ -2,7 +2,7 @@
 Current files
 1. [.emacs](./.emacs)
 2. [.gitconfig](./.gitconfig)
-3. [i3-gaps+polybar](./.config/)
+3. [i3-gaps+polybar](./.config/) (Install dependences first)
 
 
 ### Usage
