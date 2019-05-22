@@ -15,8 +15,9 @@ floating_modifier $mod
 
 #startup
 exec --no-startup-id setxkbmap -option ctrl:nocaps
-exec --no-startup-id $HOME/.i3/scripts/tap-to-click.sh
-exec --no-startup-id $HOME/.i3/scripts/invert-scrolling.sh
+exec --no-startup-id $HOME/.config/i3/scripts/tap-to-click.sh
+exec --no-startup-id $HOME/.config/i3/scripts/invert-scrolling.sh
+exec --no-startup-id nm-applet
 
 #polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh

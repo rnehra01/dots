@@ -74,9 +74,12 @@ font-1 = FontAwesome:fontformat=truetype:size=10;3
 
 modules-left = i3 xwindow
 modules-center = filesystem mem cpu
-modules-right = battery volume wifi date
+modules-right = battery volume wifi date menu0
 
-tray-position =
+tray-position = right 
+tray-padding = 2 
+tray-transparent = true
+true tray-background = #0063ff
 
 
 [module/i3]
@@ -366,3 +369,23 @@ fixed-values = true
 spacing = 4
 
 label-mounted =  %free%
+
+[module/menu0]
+type = custom/menu
+
+format = <label-toggle> <menu>
+;format-underline = ${colors.white}
+format-padding = 1
+;format-margin = 1
+
+;format-background = ${colors.black}
+
+menu-0-0 = "    "
+menu-0-0-exec = shutdown now
+menu-0-1 = "    "
+menu-0-1-exec = shutdown -r now
+menu-0-2 = "    "
+
+
+label-open = 
+label-close =
