@@ -6,4 +6,5 @@ Current files
 
 
 ### Usage
-Run `./setup.exclude.sh` to symlink these files in the home directory.
+1. `git clone git@github.com:rnehra01/dots.git`
+2. Install stow and run `stow dots`
