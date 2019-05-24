@@ -1,48 +1,7 @@
-;-------------------------------------------------
-;                                                ;
-;     Polybar configuration                      ;
-;       Andreas Schmid <ikeark@gmail.com         ;
-;                                                ;
-;-------------------------------------------------
-
 [colors]
-my_background   = #1D1F21
-my_foreground   = #C5C8C6
-
-my_color0 = #282A2E
-my_color1 = #A54242
-my_color2 = #8C9440
-my_color3 = #DE935F
-my_color4 = #5F819D
-my_color5 = #85678F
-my_color6 = #5E8D87
-my_color7 = #707880
-my_color8 = #373B41
-my_color9 = #CC6666
-my_color10  = #707880
-my_color11  = #F0C674
-my_color12  = #81A2BE
-my_color13  = #B294BB
-my_color14  = #8ABEB7
-my_color15  = #C5C8C6
-
-[bar/top]
-inherit = bar/standard
-bottom = false
-
-modules-left = xwindow
-modules-center =
-modules-right = battery
-
-tray-position = right
-tray-padding = 9
-tray-transparent = false
-tray-offset-y = 0%
-tray-offset-x = 0%
-tray-maxsize = 18
-tray-detached = false
-tray-background = ${colors.my_background}
-
+background   = #1D1F21
+foreground   = #C5C8C6
+light-grey = #707880
 
 [bar/standard]
 monitor = ${env:MONITOR:eDP1}
@@ -54,30 +13,30 @@ offset-y = 0%
 radius = 0.0
 fixed-center = true
 
-background = ${colors.my_background}
-foreground =  ${colors.my_foreground}
+background = ${colors.background}
+foreground =  ${colors.foreground}
 
 line-size = 4
-line-color = ${colors.my_color4}
+;line-color = 
 
 border-size = 0
-border-color = ${colors.my_color4}
+;border-color = 
 
 padding-left = 0
 padding-right = 1
 
-module-margin-left = 2
-module-margin-right = 2
+module-margin-left = 1.5
+module-margin-right = 1.5
 
 font-0 = Hack:fontformat=truetype:size=10;3
 font-1 = FontAwesome:fontformat=truetype:size=10;3
 
 modules-left = i3 xwindow
 modules-center = filesystem mem cpu
-modules-right = battery volume wifi date menu0
+modules-right = battery volume wifi date power-menu
 
 tray-position = right 
-tray-padding = 2 
+tray-padding = 2
 tray-transparent = true
 true tray-background = #0063ff
 
@@ -86,13 +45,8 @@ true tray-background = #0063ff
 type = internal/i3
 pin-workspaces = true
 
-label-unfocused-background = ${colors.my_background}
-label-unfocused-foreground = ${colors.my_foreground}
-
-
-label-mode = %mode%
-label-mode-padding = 2
-label-mode-background = ${colors.my_color7}
+label-unfocused-background = ${colors.background}
+label-unfocused-foreground = ${colors.foreground}
 
 label-focused = %icon%%name%
 label-focused-background = #C5C8C6
@@ -103,16 +57,19 @@ label-unfocused = %icon%%name%
 label-unfocused-padding = 2
 
 label-visible = %icon%%name%
-label-visible-underline = ${colors.my_foreground}
+label-visible-underline = ${colors.foreground}
 label-visible-padding = 2
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
 
 [module/date]
 type = internal/date
@@ -121,8 +78,7 @@ interval = 1
 date = "%%{F#C5C8C6}%Y-%m-%d%%{F-}  %%{F#C5C8C6}%H:%M:%S%%{F-}"
 date-alt = "%%{F#C5C8C6}%A, %d %B %Y  %%{F#C5C8C6}%H:%M%%{F#C5C8C6}:%%{F#C5C8C6}%S%%{F-}"
 
-format-prefix-foreground = ${colors.my_foreground}
-;format-underline = ${colors.my_color7}
+format-prefix-foreground = ${colors.foreground}
 label =  %date% 
 
 
@@ -137,34 +93,33 @@ adapter = AC
 full-at = 99
 
 ;format-full-background = #0F0
-;format-charging-background = ${colors.my_background}
+;format-charging-background = ${colors.background}
 format-charging = " <animation-charging> <label-charging> "
-;format-charging-underline = ${colors.my_color7}
 
-format-discharging-background = ${colors.my_background}
+format-discharging-background = ${colors.background}
 format-discharging = "⁣ <ramp-capacity> <label-discharging> "
 ;format-discharging-underline = ${self.format-charging-underline}
 
 
-format-full-prefix-foreground = ${colors.my_background}
+format-full-prefix-foreground = ${colors.background}
 label-full =  100%
 ;format-full-underline = ${self.format-charging-underline}
 
-format-charing-background = ${colors.my_background}
+format-charing-background = ${colors.background}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = ${colors.my_foreground}
+ramp-capacity-foreground = ${colors.foreground}
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-foreground = ${colors.my_foreground}
+animation-charging-foreground = ${colors.foreground}
 animation-charging-framerate = 750
 
 [settings]
@@ -180,7 +135,7 @@ interface = enp0s20u1
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 label-connected = " (%local_ip%)"
-label-connected-foreground = ${colors.my_foreground}
+label-connected-foreground = ${colors.foreground}
 label-disconnected = not connected
 label-disconnected-foreground = #66ffffff
 
@@ -212,14 +167,14 @@ format-packetloss = <animation-packetloss> <label-connected>
 ;   %downspeed% [wireless+wired]
 ;   %linkspeed% [wired]
 ; Default: %ifname% %local_ip%
-label-connected = %{A1:nm-connection-editor:} %essid%%{A}
-label-connected-foreground = ${colors.my_foreground}
+label-connected = " %essid%"
+label-connected-foreground = ${colors.foreground}
 
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
 ; Default: (none)
-label-disconnected = %{A1:nm-connection-editor:}%{A}
-label-disconnected-foreground = #66ffffff
+; label-disconnected = %{A1:nm-connection-editor:}%{A}
+; label-disconnected-foreground = #66ffffff
 
 ; Only applies if <ramp-signal> is used
 ramp-signal-0 = 😱
@@ -245,8 +200,7 @@ margin-bottom = 5
 type = internal/xwindow
 label = %title:0:50:...%
 label-padding = 2
-;label-underline = ${colors.my_color7}
-label-foreground = ${colors.my_color7}
+label-foreground = ${colors.light-grey}
 
 [module/cpu]
 type = internal/cpu
@@ -370,7 +324,7 @@ spacing = 4
 
 label-mounted =  %free%
 
-[module/menu0]
+[module/power-menu]
 type = custom/menu
 
 format = <label-toggle> <menu>

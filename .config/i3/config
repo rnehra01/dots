@@ -30,6 +30,8 @@ bindsym $mod+e exec emacs
 #rofi
 bindsym $mod+d  exec "rofi -show-icons -modi combi -show combi -combi-modi drun,run"
 bindsym Mod1+Tab exec "rofi -show-icons -show window"
+# gnome screenshot
+bindsym Print exec gnome-screenshot --interactive
 
 # kill focused window
 bindsym $mod+q kill
@@ -175,8 +177,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-for_window [class="^.*"] border pixel 0
+# assign applications to specific workspaces
+assign [class="Google-chrome"] 1
+assign [class="Emacs"] 2
+assign [class="Nautilus"] 10
 
+# windows specifics
+for_window [class="^.*"] border pixel 0
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="Eog"] floating enable
+for_window [class="vlc"] floating enable
+for_window [class="Nautilus"] focus
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
