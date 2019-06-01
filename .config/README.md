@@ -5,3 +5,4 @@
 5. [Install](https://www.reddit.com/r/linux4noobs/comments/9690ia/how_do_i_install_polybar_on_ubuntu_1804/) polybar ([More icons](https://fontawesome.com/cheatsheet))
 6. Run `sudo apt install i3lock-fancy` for locking
 7. `sudo apt install feh` and add `feh --bg-scale ~/Downloads/venom.png` to `~/.profile`
+8. Install [libinput-gestures](https://github.com/bulletmark/libinput-gestures).
