@@ -1,4 +1,5 @@
 
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -176,6 +177,11 @@
   :after magit
 )
 
+(use-package popup-kill-ring
+  :ensure t
+  :bind ("M-y" . popup-kill-ring)
+)
+
 ;;Markdown mode
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
@@ -189,6 +195,8 @@
 
 ;;Blogging
 ;;create a new post
+(require 'unicode-fonts)
+	(unicode-fonts-setup)
 
 (setq blog-home "/home/rnehra/Github/rnehra01.github.io")
 
@@ -241,7 +249,7 @@
  '(ivy-mode t)
  '(package-selected-packages
    (quote
-	(forge golden-ratio wgrep treemacs-magit treemacs smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode)))
+	(popup-kill-ring zerodark unicode-fonts emoji-fontset forge golden-ratio wgrep treemacs-magit treemacs smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
