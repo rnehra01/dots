@@ -54,7 +54,35 @@
 (global-linum-mode t)
 
 ;;Tab width
-(setq tab-width 4)
+(defun coding-hooks ()
+  (setq c-default-style "linux")
+  (setq c-basic-offset 4)
+  (setq-default tab-width 4)
+  (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
+  ;; (c-set-offset 'substatement-open 0)
+  ;; (c-set-offset 'brace-list-open 0)
+  ;; (c-set-offset 'block-open 0)
+  ;; (c-set-offset 'class-open 0)
+  ;; (c-set-offset 'inline-open 0)
+  ;; (c-toggle-hungry-state 1)
+  ;; (local-set-key "\M-a" 'paren-backward-sexp)
+  ;; (local-set-key "\M-e" 'paren-forward-sexp)
+  ;; (local-set-key "\C-\M-h" 'hs-hide-all)
+  ;; (hs-minor-mode t)
+  ;; (abbrev-mode 0)
+  ;; (add-hook 'before-save-hook 'coding-system-hook)
+  )
+(add-hook 'c++-mode-hook 'coding-hooks)
+;; (setq custom-tab-width 4)
+
+;; Two callable functions for enabling/disabling tabs in Emacs
+;; (defun disable-tabs () (setq indent-tabs-mode nil))
+;; (defun enable-tabs  ()
+;;   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+;;   (setq indent-tabs-mode t)
+;;   (setq tab-width custom-tab-width))
+
+;; (add-hook 'prog-mode-hook 'enable-tabs)
 
 ;;IDO Everywhere
 ;; (setq ido-enable-flex-matching t)
@@ -80,6 +108,7 @@
 	(setq ivy-use-virtual-buffers t)
 	(setq enable-recursive-minibuffers t)
 	(global-set-key "\C-s" 'swiper)
+	(global-set-key (kbd "C-c C-r") 'ivy-resume)
 	)
   )
 
@@ -89,6 +118,7 @@
   (progn
 	(global-set-key (kbd "M-x") 'counsel-M-x)
 	(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+	(global-set-key (kbd "C-x C-g") 'counsel-file-jump)
 	(global-set-key (kbd "C-c j") 'counsel-git-grep)
 	(global-set-key (kbd "C-c k") 'counsel-ag)
 	)
@@ -126,11 +156,33 @@
   (smartparens-global-mode 1)
 )
 
-(use-package auto-complete
+(use-package company
   :ensure t
-  :init
-    (global-auto-complete-mode t)
-)
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
+  (global-company-mode t))
+
+(with-eval-after-load 'company
+(define-key company-active-map (kbd "C-n") (lambda () (interactive) (company-complete-common-or-cycle 1)))
+(define-key company-active-map (kbd "C-p") (lambda () (interactive) (company-complete-common-or-cycle -1))))
+
+(use-package company-irony
+  :ensure t)
+
+(use-package company-irony-c-headers
+  :ensure t)
+
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends '(company-irony-c-headers company-irony)))
+
+(use-package irony
+  :ensure t
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
 (use-package linum-relative
   :ensure t
@@ -249,7 +301,7 @@
  '(ivy-mode t)
  '(package-selected-packages
    (quote
-	(popup-kill-ring zerodark unicode-fonts emoji-fontset forge golden-ratio wgrep treemacs-magit treemacs smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode)))
+	(counsel-gtags fzf company-irony-c-headers irony company-irony company popup-kill-ring zerodark unicode-fonts emoji-fontset forge golden-ratio wgrep treemacs-magit treemacs smartparens counsel swiper ivy-gitlab powerline all-the-icons-ivy all-the-icons-gnus all-the-icons-dired neotree which-key nhexl-mode smex org-pdfview php-mode ## pdf-tools zerodark-theme use-package undo-tree smart-comment multiple-cursors linum-relative kooten-theme gruber-darker-theme expand-region dracula-theme color-theme-sanityinc-tomorrow color-theme auto-complete ace-window ace-jump-mode)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -258,3 +310,4 @@
  ;; If there is more than one, they won't work right.
  )
 
+(put 'downcase-region 'disabled nil)
